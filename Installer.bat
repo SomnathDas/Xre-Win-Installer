@@ -39,7 +39,7 @@ echo:
 echo ------------DEPENDENCIES TIME------------
 cd Whatsapp-Botto-Xre
 if exist ./node_modules (
-    echo node_modules already Exist ...Skipping
+    echo [ OK ] NODE_MODULES ALREADY EXISTS, Moving on...
 ) else (
     echo ------------Installing Required Node Modules For Xre------------
     npm i && npm i -D && goto endgame || color 04 goto :error
@@ -51,7 +51,7 @@ if exist ./dist (
     echo [ ALREADY ] EXISTS COMPILED TYPESCRIPT
 ) else (
     echo ------------COMPILING TYPESCRIPT INTO JAVASCRIPT------------
-    npm run build   
+    npm run build && goto endgame  
 )
 :endgame
 echo:

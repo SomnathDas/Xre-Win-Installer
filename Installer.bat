@@ -27,6 +27,7 @@ where git>nul 2>&1 && echo [ OK ] Git Already Installed, Moving on... || echo gi
 where mogrify>nul 2>&1 && echo [ OK ] ImageMagick Already Installed, Moving on... || (echo `Downloading and Installing ImageMagick` && GOTO :installmagick)
 where ffmpeg>nul 2>&1 && echo [ OK ] ffmpeg Already Installed, Moving on... || (echo `Downloading and Installing ffmpeg` && GOTO :ffmpeginstall)
 echo:
+:botinstall
 echo ------------INSTALLING BOT------------
 if exist Whatsapp-Botto-Xre (
     echo [ OK ] Already Clonned the Repo!
@@ -41,8 +42,7 @@ if exist ./node_modules (
     echo node_modules already Exist ...Skipping
 ) else (
     echo ------------Installing Required Node Modules For Xre------------
-    npm i && npm i -D || color 04 goto :error
-    pause
+    npm i && npm i -D && goto endgame || color 04 goto :error
 )
 echo:
 echo ------------SUCCESSFULLY INSTALLED NODEJS DEPENDENCIES------------
@@ -53,6 +53,7 @@ if exist ./dist (
     echo ------------COMPILING TYPESCRIPT INTO JAVASCRIPT------------
     npm run build   
 )
+:endgame
 echo:
 echo ------------Do you want to remove useless executable files?------------
 cd C:\XreBotto
@@ -111,6 +112,8 @@ cd C:\XreBotto
 powershell -Command "Invoke-WebRequest https://download.imagemagick.org/ImageMagick/download/binaries/ImageMagick-6.9.12-6-Q16-HDRI-x64-dll.exe -OutFile  C:\XreBotto\TempExecutables\magicksetup.exe"
 cd C:\XreBotto\TempExecutables
 magicksetup.exe
+setx /m path "C:\Program Files\ImageMagick-6.9.12-Q16-HDRI\;%PATH%"
+call RefreshEnv.cmd
 :ffmpeginstall
 powershell -Command "Invoke-WebRequest https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-full.7z -OutFile  C:\XreBotto\TempExecutables\ffmpeg-git-full.7z"
 cd  C:\XreBotto\TempExecutables
@@ -119,5 +122,6 @@ cd C:\
 ren ffmpeg-git-full.7z ffmpeg
 setx /m path "C:\ffmpeg\bin;%PATH%"
 call RefreshEnv.cmd
+goto :botinstall
 :botstart
 npm start

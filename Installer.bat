@@ -20,8 +20,6 @@ if exist C:\XreBotto\TempExecutables (
     mkdir C:\XreBotto\TempExecutables && echo [ OK ] Created TempExecutables Directory in C:\XreBotto
 )
 cd C:\XreBotto
-
-:recheck
 echo ------------INSTALLING PRE-REQUISITES------------
 where node>nul 2>&1 && echo [ OK ] NodeJS Already Installed, Moving on... || echo Nodejs not installed! && (echo `Downloading and Installing NodeJS` && GOTO :nodeinstall )
 where 7z> nul 2>&1 && echo [ OK ] 7-zip Already Installed, Moving on... || echo 7-zip is not installed! && (echo `Downloading and Installing 7zip` && GOTO :installsevzip)
@@ -31,35 +29,31 @@ where ffmpeg>nul 2>&1 && echo [ OK ] ffmpeg Already Installed, Moving on... || (
 echo:
 echo ------------INSTALLING BOT------------
 if exist Whatsapp-Botto-Xre (
-    echo [ OK ] Already Clonned the Repo! && goto dopeshit
+    echo [ OK ] Already Clonned the Repo!
 ) else (
     echo [ GIT ] Clonning the repository!
     git clone https://github.com/SomnathDas/Whatsapp-Botto-Xre
-    goto dopeshit
 )
 echo: 
-:dopeshit
 echo ------------DEPENDENCIES TIME------------
 cd Whatsapp-Botto-Xre
 if exist ./node_modules (
     echo node_modules already Exist ...Skipping
 ) else (
     echo ------------Installing Required Node Modules For Xre------------
-    npm i && npm i -D && goto :compileshit || color 04 goto :error
+    npm i && npm i -D || color 04 goto :error
+    pause
 )
 echo:
 echo ------------SUCCESSFULLY INSTALLED NODEJS DEPENDENCIES------------
 echo:
-:compileshit
 if exist ./dist (
     echo [ ALREADY ] EXISTS COMPILED TYPESCRIPT
 ) else (
     echo ------------COMPILING TYPESCRIPT INTO JAVASCRIPT------------
-    npm run build
-    goto :endgame   
+    npm run build   
 )
 echo:
-:endgame
 echo ------------Do you want to remove useless executable files?------------
 cd C:\XreBotto
 rmdir /s C:\XreBotto\TempExecutables
@@ -94,18 +88,16 @@ cd C:\XreBotto\TempExecutables
 Git-2.31.1-64-bit.exe
 echo ------Setting Up Git in PATHS------
 setx /m path "C:\Program Files\Git\bin;%PATH%"
-refreshenv
+call RefreshEnv.cmd
 cd C:\XreBotto
-goto :recheck
 :installsevzip
 powershell -Command "Invoke-WebRequest https://www.7-zip.org/a/7z1900-x64.exe -OutFile C:\XreBotto\TempExecutables\7z1900-x64.exe"
 cd C:\XreBotto\TempExecutables
 7z1900-x64.exe
 echo ------Setting Up 7z in PATHS------
 setx /m path "C:\Program Files\7-Zip\;%PATH%"
-refreshenv
+call RefreshEnv.cmd
 cd C:\XreBotto
-goto :recheck
 :installwebp
 powershell -Command "Invoke-WebRequest https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.2.0-windows-x64.zip -OutFile  C:\XreBotto\TempExecutables\libwebp-1.2.0-windows-x64.zip"
 cd C:\XreBotto\TempExecutables
@@ -113,14 +105,12 @@ cd C:\XreBotto\TempExecutables
 cd C:\
 ren libwebp-1.2.0-windows-x64 libwebp
 setx /m path "C:\libwebp\bin;%PATH%"
-refreshenv
+call RefreshEnv.cmd
 cd C:\XreBotto
-goto :recheck
 :installmagick
 powershell -Command "Invoke-WebRequest https://download.imagemagick.org/ImageMagick/download/binaries/ImageMagick-6.9.12-6-Q16-HDRI-x64-dll.exe -OutFile  C:\XreBotto\TempExecutables\magicksetup.exe"
 cd C:\XreBotto\TempExecutables
 magicksetup.exe
-goto :recheck
 :ffmpeginstall
 powershell -Command "Invoke-WebRequest https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-full.7z -OutFile  C:\XreBotto\TempExecutables\ffmpeg-git-full.7z"
 cd  C:\XreBotto\TempExecutables
@@ -128,7 +118,6 @@ cd  C:\XreBotto\TempExecutables
 cd C:\
 ren ffmpeg-git-full.7z ffmpeg
 setx /m path "C:\ffmpeg\bin;%PATH%"
-refreshenv
-goto :recheck
+call RefreshEnv.cmd
 :botstart
 npm start

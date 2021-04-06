@@ -65,18 +65,10 @@ echo ------[ WARNING! ] Make sure to set-up MongoDB/Database before starting the
 pause
 color 0b
 echo ------[ NOTE ] you can start bot by opening commnad prompt and typing 'npm start' ------
-
-ECHO.
-ECHO 1 - Run Bot Now?
-ECHO 2 - exit
-ECHO.
-SET /P M=Type 1, 2, 3, or 4 then press ENTER:
-IF %M%==1 GOTO botstart
-IF %M%==2 GOTO EOF
-GOTO EOF
+pause
 
 :error
-echo Failed with error #%errorlevel%.
+echo Failed due to #%errorlevel%.
 exit /b %errorlevel%
 :nodeinstall
 powershell -Command "Invoke-WebRequest https://nodejs.org/dist/v14.16.0/node-v14.16.0-x64.msi -OutFile  C:\XreBotto\TempExecutables\node-v14.16.0-x64.msi"

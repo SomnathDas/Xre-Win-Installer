@@ -70,6 +70,7 @@ echo ------------[ WARNING! ] Make sure to set-up MongoDB/Database before starti
 pause
 color 0b
 echo ------------[ SETTING UP] MONGO ATLAST DB------------
+cd C:\XreBotto\Whatsapp-Botto-Xre
 echo Enter your Cluster URI received from Mongo Atlast!
 set /p your_cluster_uri=""
 (echo MONGO_URI=%your_cluster_uri% 

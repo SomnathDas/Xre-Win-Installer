@@ -7,6 +7,8 @@ echo  \/ \/   ) ) (_( (_ ( (_( )_) )_)   /__) (_) (_  (_ (_)   /) ) )_)   _(_ ) 
 echo                     _)   (   (                                (_             _)            (_    
 echo Press "Enter" to start the installation process!                                                 
 pause
+for /f "tokens=4-5 delims=. " %%i in ('ver') do set VERSION=%%i.%%j
+if "%version%" == "6.1" (START CMD /C "color 04 && ECHO !!! INSTALL POWERSHELL VERSION 3.0 or above !!! && PAUSE")
 cls
 color 0b
 if exist C:\XreBotto (
@@ -59,13 +61,21 @@ echo:
 echo ------------Do you want to remove useless executable files?------------
 cd C:\XreBotto
 rmdir /s C:\XreBotto\TempExecutables
-echo ------[ SUCCESS ]Whatsapp Botto Xre Successfully Installed ------
+echo ------------[ SUCCESS ]Whatsapp Botto Xre Successfully Installed------------
 echo:
 color 09
-echo ------[ WARNING! ] Make sure to set-up MongoDB/Database before starting the bot ------
+echo ------------[ WARNING! ] Make sure to set-up MongoDB/Database before starting the bot------------
 pause
 color 0b
-echo ------[ NOTE ] you can start bot by opening commnad prompt and typing 'npm start' ------
+echo ------------[ SETTING UP] MONGO ATLAST DB------------
+echo Enter your Cluster URI received from Mongo Atlast!
+set /p your_cluster_uri=""
+(echo MONGO_URI=%your_cluster_uri% 
+echo EIF=https://express-is-fun.herokuapp.com/ 
+echo ADMINS='') > .env
+echo ------------[ COMPLETED ] MONGO ATLAST DB SETUP------------
+echo: 
+echo ------------[ NOTE ] You can start bot by opening command prompt in the bot directory and typing 'npm start'------------
 pause
 
 :error
@@ -121,5 +131,3 @@ ren ffmpeg-git-full.7z ffmpeg
 setx /m path "C:\ffmpeg\bin;%PATH%"
 call RefreshEnv.cmd
 goto :botinstall
-:botstart
-npm start

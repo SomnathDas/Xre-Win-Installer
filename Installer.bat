@@ -45,18 +45,20 @@ if exist ./node_modules (
     echo [ OK ] NODE_MODULES ALREADY EXISTS, Moving on...
 ) else (
     echo ------------Installing Required Node Modules For Xre------------
-    npm i && npm i -D && goto endgame || color 04 goto :error
+    npm i && npm i -D || color 04 goto :error
+    echo ------------SUCCESSFULLY INSTALLED NODEJS DEPENDENCIES------------
+    echo:
+    goto endgame
 )
-echo:
-echo ------------SUCCESSFULLY INSTALLED NODEJS DEPENDENCIES------------
-echo:
+
+:endgame
 if exist ./dist (
     echo [ ALREADY ] EXISTS COMPILED TYPESCRIPT
+    pause
 ) else (
     echo ------------COMPILING TYPESCRIPT INTO JAVASCRIPT------------
-    npm run build && goto endgame  
+    npm run build
 )
-:endgame
 echo:
 echo ------------Do you want to remove useless executable files?------------
 cd C:\XreBotto

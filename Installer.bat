@@ -21,6 +21,7 @@ if exist C:\XreBotto\TempExecutables (
 )
 cd C:\XreBotto
 echo ------------INSTALLING PRE-REQUISITES------------
+:preq
 where node>nul 2>&1 && echo [ OK ] NodeJS Already Installed, Moving on... || echo Nodejs not installed! && (echo `Downloading and Installing NodeJS` && GOTO :nodeinstall )
 where 7z> nul 2>&1 && echo [ OK ] 7-zip Already Installed, Moving on... || echo 7-zip is not installed! && (echo `Downloading and Installing 7zip` && GOTO :installsevzip)
 where git>nul 2>&1 && echo [ OK ] Git Already Installed, Moving on... || echo git not installed! && (echo `Downloading and Installing Git` && GOTO :gitinstall)
@@ -75,6 +76,7 @@ powershell -Command "Invoke-WebRequest https://nodejs.org/dist/v14.16.0/node-v14
 cd C:\XreBotto\TempExecutables
 node-v14.16.0-x64.msi
 cd C:\XreBotto
+GOTO :preq
 :gitinstall
 powershell -Command "Invoke-WebRequest https://github.com/git-for-windows/git/releases/download/v2.31.1.windows.1/Git-2.31.1-64-bit.exe -OutFile  C:\XreBotto\TempExecutables\Git-2.31.1-64-bit.exe"
 cd C:\XreBotto\TempExecutables
@@ -83,6 +85,7 @@ echo ------Setting Up Git in PATHS------
 setx /m path "C:\Program Files\Git\bin;%PATH%"
 call RefreshEnv.cmd
 cd C:\XreBotto
+GOTO :preq
 :installsevzip
 powershell -Command "Invoke-WebRequest https://www.7-zip.org/a/7z1900-x64.exe -OutFile C:\XreBotto\TempExecutables\7z1900-x64.exe"
 cd C:\XreBotto\TempExecutables
@@ -90,6 +93,7 @@ cd C:\XreBotto\TempExecutables
 echo ------Setting Up 7z in PATHS------
 setx /m path "C:\Program Files\7-Zip\;%PATH%"
 call RefreshEnv.cmd
+GOTO :preq
 cd C:\XreBotto
 :installwebp
 powershell -Command "Invoke-WebRequest https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.2.0-windows-x64.zip -OutFile  C:\XreBotto\TempExecutables\libwebp-1.2.0-windows-x64.zip"
@@ -100,12 +104,14 @@ ren libwebp-1.2.0-windows-x64 libwebp
 setx /m path "C:\libwebp\bin;%PATH%"
 call RefreshEnv.cmd
 cd C:\XreBotto
+GOTO :preq
 :installmagick
 powershell -Command "Invoke-WebRequest https://download.imagemagick.org/ImageMagick/download/binaries/ImageMagick-6.9.12-6-Q16-HDRI-x64-dll.exe -OutFile  C:\XreBotto\TempExecutables\magicksetup.exe"
 cd C:\XreBotto\TempExecutables
 magicksetup.exe
 setx /m path "C:\Program Files\ImageMagick-6.9.12-Q16-HDRI\;%PATH%"
 call RefreshEnv.cmd
+GOTO :preq
 :ffmpeginstall
 powershell -Command "Invoke-WebRequest https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-full.7z -OutFile  C:\XreBotto\TempExecutables\ffmpeg-git-full.7z"
 cd  C:\XreBotto\TempExecutables

@@ -103,8 +103,8 @@ cd C:\XreBotto\TempExecutables
 echo ------Setting Up 7z in PATHS------
 setx /m path "C:\Program Files\7-Zip\;%PATH%"
 call RefreshEnv.cmd
-GOTO :preq
 cd C:\XreBotto
+GOTO :preq
 :installwebp
 powershell -Command "Invoke-WebRequest https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.2.0-windows-x64.zip -OutFile  C:\XreBotto\TempExecutables\libwebp-1.2.0-windows-x64.zip"
 cd C:\XreBotto\TempExecutables
